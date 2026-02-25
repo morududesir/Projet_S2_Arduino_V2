@@ -1,0 +1,14 @@
+//Fichier d'entête pour les fonctions d'acquisition de données pour les capteurs du volant
+
+#ifndef MOTEURCTRL_H
+#define MOTEURCTRL_H
+#include <avr/interrupt.h>
+
+const int stepRes = 3200;
+const int maxRate = 20000;
+const uint16_t highTicks = 10; // 5µs × 2 ticks/µs (prescaler 8 = 0.5µs/tick)
+
+void setupMoteurCtrl();
+void setSpeed(int RPM);
+
+#endif 
