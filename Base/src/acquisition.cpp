@@ -35,17 +35,21 @@ void setupAcquisition() {
 	ADMUX |= (1 << REFS0);
 	// ADCSRA : ADC Control and Status Register A
 	// ADEN : ADC Enable, ADPS2:0 : ADC Prescaler Select bits
+	// ADSC : Lance une conversion ADC
 	// On active l'ADC et on choisit un prescaler de 128
-	ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
+	ADCSRA |= (1 << ADEN) | (1 << ADSC) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
 }
 
-int getPosition() {
+AcquisitionData getValues() {
+	AcquisitionData data;
 	// cli/sei : désactive/réactive les interruptions globales
 	// Protège la lecture de encoderPos contre une ISR concurrente
 	cli();
-	int32_t pos = encoderPos;
+	data.encoderPos = encoderPos;
+	data.pot1Value = pot1Value;
+	data.pot2Value = pot2Value;
 	sei();
-	return pos;
+	return data; 
 }
 
 ISR(INT0_vect) {
@@ -82,5 +86,5 @@ ISR(ADC_vect) {
         currentChannel = LOW; // Revenir à la lecture du pot 1 au prochain déclenchement
         ADMUX &= ~(1 << MUX0); // Réinitialiser le canal ADC à ADC0 (pin A0)
     }
-    // Traiter la valeur ADC comme nécessaire (ex: filtrage, conversion en angle, etc.)
+	ADCSRA |= (1 << ADSC); // Lancer une nouvelle conversion ADC
 }  

@@ -1,8 +1,9 @@
-//Fichier d'entête pour les fonctions d'acquisition de données pour les capteurs du volant
+//Fichier d'entête pour le contrôle du moteur du volant
 
 #ifndef MOTEURCTRL_H
 #define MOTEURCTRL_H
 #include <avr/interrupt.h>
+#include <Arduino.h>
 
 const int stepRes = 3200;
 const int maxRate = 20000;

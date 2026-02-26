@@ -5,24 +5,54 @@ volatile bool speedState = LOW;
 volatile bool pendingDirHigh = LOW;
 volatile bool stepState = LOW;
 
-
 void setupMoteurCtrl() {
+  // DDRB : Data Direction Register B
+  // Configure les pins du port B en entrée (0) ou sortie (1)
+  // Bit 4 = pin 12 (STEP), bit 5 = pin 13 (DIR)
   DDRB |= (1 << 4) | (1 << 5);
+
+  // PORTB : Port B Data Register
+  // Quand la pin est en output, contrôle l'état HIGH/LOW
+  // On force STEP et DIR à LOW au démarrage
   PORTB &= ~((1 << 4) | (1 << 5));
 
-  // Timer1 mode CTC avec ICR1 comme TOP, prescaler 8
+  // TCCR1A : Timer1 Control Register A
+  // Contrôle les modes de sortie compare (OC1A, OC1B)
+  // On met à 0 pour désactiver tout output compare, on veut juste le timer
   TCCR1A = 0;
+
+  // TCCR1B : Timer1 Control Register B
+  // WGM13 et WGM12 : Waveform Generation Mode
+  // Ensemble ils sélectionnent le mode CTC avec ICR1 comme TOP
+  // Le timer compte de 0 jusqu'à ICR1 puis repart à 0
+  // CS11 : Clock Select, prescaler 8
+  // 16MHz / 8 = 2MHz = 0.5µs par tick
   TCCR1B = (1 << WGM13) | (1 << WGM12) | (1 << CS11);
-  ICR1 = 2000; // idle ~1ms
+
+  // ICR1 : Input Capture Register 1
+  // Définit la valeur TOP du timer en mode CTC
+  // Le timer déclenche l'interruption quand TCNT1 atteint ICR1
+  // 2000 ticks × 0.5µs = 1ms au repos
+  ICR1 = 2000;
+
+  // TCNT1 : Timer1 Counter Register
+  // Valeur actuelle du compteur
+  // On remet à 0 pour partir proprement
   TCNT1 = 0;
-  TIMSK1 = (1 << ICIE1); // Interruption sur ICR1
+
+  // TIMSK1 : Timer1 Interrupt Mask Register
+  // Chaque bit active une source d'interruption du Timer1
+  // ICIE1 : Input Capture Interrupt Enable
+  // Déclenche l'ISR quand TCNT1 atteint ICR1
+  TIMSK1 = (1 << ICIE1);
 
   setSpeed(0);
 }
 
-
 void setSpeed(int RPM) {
   if (RPM == 0) {
+    // cli/sei : désactive/réactive les interruptions globales
+    // Protège la modification de speedState contre une ISR concurrente
     cli(); speedState = LOW; sei();
     return;
   }
@@ -32,9 +62,8 @@ void setSpeed(int RPM) {
   unsigned long period = 1000000UL / stepSec;
   unsigned long low = period - 5UL;
   if (low < 5) low = 5;
-
   cli();
-  lowTicks = (uint16_t)(low * 2);  // µs → ticks (×2 car 0.5µs/tick)
+  lowTicks = (uint16_t)(low * 2);
   pendingDirHigh = dirHigh;
   speedState = HIGH;
   sei();
