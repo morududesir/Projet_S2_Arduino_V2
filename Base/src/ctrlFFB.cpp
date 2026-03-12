@@ -39,13 +39,16 @@ AcquisitionData FFB() {
   float rpm = (erreur * gainLineaire) + (erreur * abs(erreur) * gainExponentiel) - (vitesse * gainD);
   if(rpm > capSpeed) rpm = capSpeed;
   else if(rpm < -capSpeed) rpm = -capSpeed;
+    Serial.println("RPM:"); Serial.print(rpm);
+  /*
   Serial.print(">");
   Serial.print("Erreur:"); Serial.print(erreur);
   Serial.print(",");
-  Serial.print("RPM:"); Serial.print(rpm);
+
   Serial.print(",");
   Serial.print("Position:"); Serial.print(data.encoderPos);
   Serial.println();
-  //setSpeed(rpm);
+  */
+  setSpeed(20);
   return data;
 }

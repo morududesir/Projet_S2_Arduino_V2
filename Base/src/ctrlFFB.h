@@ -7,13 +7,13 @@
 
 const int pinZ = 4; // Pin de la phase Z
 const int zOffset = 0; // Offset pour la position Z
-const float gainLineaire = 0.00; // Ajustez ce gain pour la partie linéaire
-const float gainExponentiel = 0.005; // Ajustez ce gain pour la partie Exponentielle
+const float gainLineaire = 0.001; // Ajustez ce gain pour la partie linéaire
+const float gainExponentiel = 0.0001; // Ajustez ce gain pour la partie Exponentielle
 const int homingSpeed = 50; // Vitesse de homing, ajustez selon vos besoins
-const int capSpeed = 500; // Vitesse maximale du moteur
+const int capSpeed = 200; // Vitesse maximale du moteur
 extern int target; // Position cible pour le homing (définition dans ctrlFFB.cpp)
 const float deltaT = 0.01; //Intervalle de temps en ms pour le calcul de la vitesse
-const float gainD = 0.01; // Gain pour la composante dérivative
+const float gainD = 0.00; // Gain pour la composante dérivative
 
 void homing();
 AcquisitionData FFB();

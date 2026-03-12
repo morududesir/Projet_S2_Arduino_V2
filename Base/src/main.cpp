@@ -9,16 +9,18 @@ void setup() {
     Serial.begin(9600);
 
 
-  homing();
-  //setupMoteurCtrl();
-  //setupAcquisition();
+  //homing();
+  setupMoteurCtrl();
+  setupAcquisition();
+  setSpeed(300);
 }
 
 void loop() {
 
   if(millis() - previousMillis >= interval * 1000) {
     previousMillis = millis();
-    FFB();
+    //AcquisitionData data = FFB();
   }
+
 
 }
