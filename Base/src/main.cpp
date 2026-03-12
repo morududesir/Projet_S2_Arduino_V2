@@ -1,24 +1,24 @@
-#include <Arduino.h>
-#include "moteurCtrl.h"
-#include "acquisition.h"
-
-const float gainLinéaire = 0.04; // Ajustez ce gain pour la partie linéaire
-const float gainExponentiel = 0.00; // Ajustez ce gain pour la partie Exponentielle
-
-int rpm = 0;
-int erreur = 0;
-int target = 0;
-int centre = 0; // Position centrale de l'encodeur
+#include "ctrlFFB.h"
+const int FreqEchantillonnage = 100; // Fréquence d'échantillonnage en Hz
+const float interval = 1.0 / FreqEchantillonnage;
+unsigned long previousMillis = 0;
 
 void setup() {
-  // put your setup code here, to run once:
-  setSpeed(0);
+
+
+    Serial.begin(9600);
+
+
+  homing();
+  //setupMoteurCtrl();
+  //setupAcquisition();
 }
 
 void loop() {
-  AcquisitionData data = getValues();
 
-  erreur = data.encoderPos - centre;
-  rpm = (erreur * gainLinéaire) + (erreur * erreur * gainExponentiel);
+  if(millis() - previousMillis >= interval * 1000) {
+    previousMillis = millis();
+    FFB();
+  }
+
 }
-
