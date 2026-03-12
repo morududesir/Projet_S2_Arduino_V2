@@ -1,5 +1,5 @@
 
-/*
+
 #include <Arduino.h>
 #include "acquisition.h"
 #include "traitement.h"
@@ -14,8 +14,6 @@ void setup() {
 }
 
 void loop() {
-  //uint8_t val = traitementJoystick();
-  //Serial.println(val, BIN);
+  traitement_acceleration();
 }
 
-*/

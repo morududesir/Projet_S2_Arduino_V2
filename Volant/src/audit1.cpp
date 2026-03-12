@@ -1,5 +1,5 @@
 
-
+/*
 #include <Arduino.h>
 #include "acquisition.h"
 #include "traitement.h"
@@ -94,9 +94,8 @@ void loop() {
     u8g2.drawStr(0, 35, joyStr.c_str());
     u8g2.sendBuffer();
 
-}*/
-
+}
 
   delay(100); // pause before repeating
-}
+}*/
 

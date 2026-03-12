@@ -25,12 +25,12 @@ DirectionAccel traitement_acceleration()
     float ratio_V_en_G = 0.3;
     Acceleration acc_en_g = capterAccel();
     float XYZ[3] = {acc_en_g.x,acc_en_g.y,acc_en_g.z}; //Extraction valeurs accel XYZ
-    float XYZ_en_g[3];
+    //float XYZ_en_g[3];
     int i;
     DirectionAccel valAccel;
 
     //Conversion V en g
-    for(i=0;i<3;i++){
+    /*for(i=0;i<3;i++){
         if (i!=2){
         if(XYZ[i]<1.35 || XYZ[i]>1.75){
             XYZ_en_g[i] = (XYZ[i]-V_0g)/ratio_V_en_G;
@@ -42,7 +42,7 @@ DirectionAccel traitement_acceleration()
         }
         }
         else {
-        if(XYZ[i]<1.1 || XYZ[i]>1.90){
+        if(XYZ[i]<1.35 || XYZ[i]>1.65){
             XYZ_en_g[i] = (XYZ[i]-V_0g)/ratio_V_en_G;
             valAccel.valeursAccel[i] = XYZ_en_g[i];
         }
@@ -52,9 +52,21 @@ DirectionAccel traitement_acceleration()
         }
 
         }
-    }
+        
+        Serial.print(XYZ_en_g[i]);
+    }*/
+    Serial.print("X : ");
+    Serial.print(XYZ[0]);
+    if (XYZ[0]<1.66)
+        Serial.print("Gauche");
+    if (XYZ[0]>1.68)
+        Serial.print("Droite");
+    //Serial.print("Y : ");
+    //Serial.print(XYZ[1]);
+    //Serial.print("Z : ");
+    //Serial.print(XYZ[2]);
 
-    //Détection direction accelération
+   /* //Détection direction accelération
     if(XYZ_en_g[0]<0){
         valAccel.direction = GAUCHE;
     }
@@ -65,5 +77,5 @@ DirectionAccel traitement_acceleration()
         valAccel.direction = NEUTRE;
     }
 
-    return valAccel;
+    return valAccel;*/
 }
