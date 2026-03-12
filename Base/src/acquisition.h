@@ -11,6 +11,8 @@ struct AcquisitionData {
     int pot2Value;
 };
 
+const int resEncoder = 1440; // Résolution de l'encodeur (ticks par tour)
+
 int getPosition();
 void setupAcquisition();
 AcquisitionData getValues();
