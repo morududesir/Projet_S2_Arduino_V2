@@ -31,13 +31,26 @@ DirectionAccel traitement_acceleration()
 
     //Conversion V en g
     for(i=0;i<3;i++){
-        if(XYZ[i]<1.45 || XYZ[i]>1.65){
+        if (i!=2){
+        if(XYZ[i]<1.35 || XYZ[i]>1.75){
             XYZ_en_g[i] = (XYZ[i]-V_0g)/ratio_V_en_G;
             valAccel.valeursAccel[i] = XYZ_en_g[i];
         }
         else{
             XYZ_en_g[i] = 0.0;
             valAccel.valeursAccel[i] = XYZ_en_g[i];
+        }
+        }
+        else {
+        if(XYZ[i]<1.1 || XYZ[i]>1.90){
+            XYZ_en_g[i] = (XYZ[i]-V_0g)/ratio_V_en_G;
+            valAccel.valeursAccel[i] = XYZ_en_g[i];
+        }
+        else{
+            XYZ_en_g[i] = 0.0;
+            valAccel.valeursAccel[i] = XYZ_en_g[i];
+        }
+
         }
     }
 

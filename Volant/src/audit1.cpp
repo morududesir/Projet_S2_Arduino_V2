@@ -63,8 +63,9 @@ void loop() {
     dirStr += "DROITE";
   }
   String accelStr = "Accel(g): X=" + String(valAccel.valeursAccel[0], 2) + " Y=" + String(valAccel.valeursAccel[1], 2) + " Z=" + String(valAccel.valeursAccel[2], 2);
-  //Serial.println(accelStr);
-  Bouton bouton = capterSwitch();
+  Serial.println(accelStr);
+  Serial.println(dirStr);
+  /*Bouton bouton = capterSwitch();
   String switchStr = "Switch 1: " + String(bouton.switch3) + " - Switch 2: " + String(bouton.switch4);
 
   Joystick joy = capterJoy();
@@ -93,7 +94,7 @@ void loop() {
     u8g2.drawStr(0, 35, joyStr.c_str());
     u8g2.sendBuffer();
 
-}
+}*/
 
 
   delay(100); // pause before repeating
