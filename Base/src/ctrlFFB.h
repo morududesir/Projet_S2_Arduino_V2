@@ -7,7 +7,7 @@
 
 const int pinZ = 4; // Pin de la phase Z
 const int zOffset = 0; // Offset pour la position Z
-const float gainLineaire = 0.02; // Ajustez ce gain pour la partie linéaire
+const float gainLineaire = 0.0002; // Ajustez ce gain pour la partie linéaire
 const float gainExponentiel = 0.000; // Ajustez ce gain pour la partie Exponentielle
 const int homingSpeed = 10; // Vitesse de homing, ajustez selon vos besoins
 const int capSpeed = 50; // Vitesse maximale du moteur
@@ -17,5 +17,6 @@ const float gainD = 0.007; // Gain pour la composante dérivative
 
 void homing();
 AcquisitionData FFB();
+
 
 #endif 
