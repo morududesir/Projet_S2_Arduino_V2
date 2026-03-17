@@ -39,23 +39,52 @@ void setupMoteurCtrl() {
   TIMSK1 = (1 << ICIE1);
   setSpeed(0);
 }
-void setSpeed(int RPM) {
-  if (RPM == 0) {
+void setSpeed(float targetRPM) {
+  static float currentRPM = 0;
+  const float maxStep = 20.0f; // RPM maximum par appel, ajustez selon vos besoins
+  
+  if (fabs(targetRPM - currentRPM) > maxStep) {
+    currentRPM += (targetRPM > currentRPM) ? maxStep : -maxStep;
+  } else {
+    currentRPM = targetRPM;
+  }
+
+  if (fabs(currentRPM) < 0.5f) {
     cli(); speedState = LOW; sei();
     return;
   }
-  bool dirHigh = (RPM > 0);
-  unsigned long stepSec = (unsigned long)stepRes * (unsigned long)abs(RPM) / 60UL;
+
+  bool dirHigh = (currentRPM > 0);
+  float absRPM = fabs(currentRPM);
+  unsigned long stepSec = (unsigned long)((float)stepRes * absRPM / 60.0f);
   if (stepSec > maxRate) stepSec = maxRate;
+  if (stepSec < 1) stepSec = 1;
   unsigned long period = 1000000UL / stepSec;
   unsigned long low = period - 5UL;
   if (low < 5) low = 5;
   cli();
-  lowTicks = (uint16_t)(low * 2);
+  lowTicks = (uint16_t)min(low * 2, 65535UL);
   pendingDirHigh = dirHigh;
   speedState = HIGH;
   sei();
 }
+
+void setupDriverReset() {
+    pinMode(pinENA, OUTPUT);
+    pinMode(pinALM, INPUT_PULLUP);
+    digitalWrite(pinENA, LOW);  // LOW = driver actif (ENA non activé)
+}
+
+bool checkAndResetDriver() {
+    if (digitalRead(pinALM) == LOW) {   // alarme = OC tire vers GND
+        digitalWrite(pinENA, HIGH);      // désactiver le driver
+        delay(1);
+        digitalWrite(pinENA, LOW);       // réactiver
+        return true;
+    }
+    return false;
+}
+
 ISR(TIMER1_CAPT_vect) {
   if (speedState == HIGH) {
     if (stepState == LOW) {

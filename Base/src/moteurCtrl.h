@@ -7,10 +7,16 @@
 
 const int stepRes = 3200;
 const int maxRate = 20000;
-const uint16_t highTicks = 10; // 5µs × 2 ticks/µs (prescaler 8 = 0.5µs/tick)
+const uint32_t highTicks = 10; // 5µs × 2 ticks/µs (prescaler 8 = 0.5µs/tick)
+
+const int pinENA = 5;
+const int pinALM = 6;
 
 void setupMoteurCtrl();
-void setSpeed(int RPM);
+void setSpeed(float RPM);
+
+void setupDriverReset();
+bool checkAndResetDriver();
 
 
 #endif 
