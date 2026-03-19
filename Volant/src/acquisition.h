@@ -29,7 +29,7 @@ struct Bouton {
     bool switch2;
     bool switch3;
     bool switch4;
-    
+
     bool paddleshiftup;
     bool paddleshiftdown;
 };
@@ -55,6 +55,10 @@ const int SWITCH_1 = 9;
 const int SWITCH_2 = 8;
 const int SWITCH_3 = 7;
 const int SWITCH_4 = 6;
+
+//Pins Paddles
+const int PADDLE_UP = 4; 
+const int PADDLE_DOWN = 5; 
 
 //Fonction Init Pins
 void setupCapteurs();

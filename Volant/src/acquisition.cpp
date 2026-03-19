@@ -19,6 +19,10 @@ void setupCapteurs()
     pinMode(PIN_JOYSTICKX,INPUT);
     pinMode(PIN_JOYSTICKY,INPUT);
 
+    //Init Pins Potentiomètre Joystick
+    pinMode(PADDLE_UP,INPUT_PULLUP);
+    pinMode(PADDLE_DOWN,INPUT_PULLUP);
+
     //Init Pins Accéléromètre (Peut-être à enlever)
     pinMode(PIN_ACCELEROX,INPUT);
     pinMode(PIN_ACCELEROY,INPUT);
@@ -68,7 +72,7 @@ Bouton capterSwitch()
     static unsigned long preMillis = 0; 
     unsigned long MillisActuel = millis();
     bool LECTURE = 1, PRET = 0;
-    const int interval = 120;
+    const int interval = 200;
     bool etat = PRET;
 
     Bouton bouton;
@@ -76,6 +80,8 @@ Bouton capterSwitch()
     bouton.switch2 = digitalRead(SWITCH_2);
     bouton.switch3 = digitalRead(SWITCH_3);
     bouton.switch4 = digitalRead(SWITCH_4);
+    bouton.paddleshiftup = digitalRead(PADDLE_UP);
+    bouton.paddleshiftdown = digitalRead(PADDLE_DOWN);
 
     if (MillisActuel-preMillis >= interval && etat == PRET) {
         preMillis = MillisActuel;
@@ -96,6 +102,18 @@ Bouton capterSwitch()
     if(bouton.switch4 != HIGH){ 
         bouton.switch4 = true;
         Serial.print(bouton.switch4);
+    }
+    if(bouton.switch3 != HIGH){
+        bouton.switch3 = true;
+        Serial.print(bouton.switch3);
+    }
+    if(bouton.paddleshiftup != HIGH){ 
+        bouton.paddleshiftup = true;
+        Serial.print(bouton.paddleshiftup);
+    }
+     if(bouton.paddleshiftdown != HIGH){ 
+        bouton.paddleshiftdown = true;
+        Serial.print(bouton.paddleshiftdown);
     }
     etat = PRET;
     }
