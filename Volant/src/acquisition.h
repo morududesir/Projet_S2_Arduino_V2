@@ -53,6 +53,9 @@ const int SWITCH_2 = 8;
 const int SWITCH_3 = 7;
 const int SWITCH_4 = 6;
 
+const int joy_deadzone = 50;
+const int joy_mid = 512;
+
 //Fonction Init Pins
 void setupCapteurs();
 
@@ -66,5 +69,7 @@ Encodeur capterEncodeurs();
 Joystick capterJoy();
 
 Bouton capterSwitch();
+
+uint8_t traitementJoystick();
 
 #endif 

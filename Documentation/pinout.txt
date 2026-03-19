@@ -1,0 +1,19 @@
+Pin moteur - Pin Arduino
+PU+ - 5V
+PU- - D12
+
+DIR+ - 5V
+DIR- - D13
+
+EN+ - D5
+EN- - GND
+
+AL+ - D6
+AL- - GND
+
+Fils encodeur - Pin Arduino
+Vert - D2
+Blanc - D3
+Jaune - D4
+
+

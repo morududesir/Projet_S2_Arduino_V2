@@ -78,8 +78,9 @@ void setupDriverReset() {
 bool checkAndResetDriver() {
     if (digitalRead(pinALM) == LOW) {   // alarme = OC tire vers GND
         digitalWrite(pinENA, HIGH);      // désactiver le driver
-        delay(1);
+        delay(150);                      // laisser le driver se reset
         digitalWrite(pinENA, LOW);       // réactiver
+        delay(50);
         return true;
     }
     return false;
