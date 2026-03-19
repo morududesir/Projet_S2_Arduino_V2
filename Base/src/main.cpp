@@ -1,4 +1,4 @@
-#include "ctrlFFB.h"
+#include "communication.h"
 const int FreqEchantillonnage = 100; // Fréquence d'échantillonnage en Hz
 const float interval = 1.0 / FreqEchantillonnage;
 unsigned long previousMillis = 0;
@@ -19,8 +19,6 @@ void loop() {
     if (millis() - previousMillis >= interval * 1000) {
         previousMillis = millis();
         data = FFB();
-        // AcquisitionData data = calculateFeedback();
-        // Serial.print("Encoder Position: ");
-        // Serial.print(data.encoderPos);
+        sendData(data);
     }
 }

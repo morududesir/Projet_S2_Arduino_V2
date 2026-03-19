@@ -5,7 +5,7 @@
 #include <ArduinoJson.h>
 #include "ctrlFFB.h"
 
-//void sendData(AcquisitionData data);
+void sendData(AcquisitionData data);
 
 int minBrake = 0;
 int maxBrake = 1023;
