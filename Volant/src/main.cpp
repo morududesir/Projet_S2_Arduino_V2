@@ -16,7 +16,8 @@ void setup() {
 void loop() {
   //capterEncodeurs();
   //traitement_acceleration();
-  capterJoy();
-  //capterSwitch();
+  //capterJoy();
+  capterSwitch();
+  
 }
 

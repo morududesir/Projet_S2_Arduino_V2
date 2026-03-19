@@ -70,15 +70,22 @@ Bouton capterSwitch()
     bouton.switch3 = digitalRead(SWITCH_3);
     bouton.switch4 = digitalRead(SWITCH_4);
 
-    if(bouton.switch1 != LOW)
-        Serial.print("1");
-    if(bouton.switch2 != LOW)
-        Serial.print("2");
-    if(bouton.switch3 != LOW)
-        Serial.print("3");
-    if(bouton.switch4 != LOW) 
-        Serial.print("4");
-
+    if(bouton.switch1 != HIGH){
+        bouton.switch1 = true;
+        Serial.print(bouton.switch1);
+    }
+    if(bouton.switch2 != HIGH){
+        bouton.switch2 = true;
+        Serial.print(bouton.switch2);
+    }
+    if(bouton.switch3 != HIGH){
+        bouton.switch3 = true;
+        Serial.print(bouton.switch3);
+    }
+    if(bouton.switch4 != HIGH){
+        bouton.switch4 = true;
+        Serial.print(bouton.switch4);
+    }
     return bouton;
 }
 
