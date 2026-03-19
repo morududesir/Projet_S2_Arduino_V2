@@ -1,6 +1,7 @@
 //Fichier CPP pour les fonctions d'acquisition de donnée
 
 #include "acquisition.h"
+#include "string.h"
 
 Encoder EncodeurGauche(PIN_ENCODEUR1A,PIN_ENCODEUR1B);
 Encoder EncodeurDroite(PIN_ENCODEUR2A,PIN_ENCODEUR2B);
@@ -64,11 +65,21 @@ Joystick capterJoy()
 
 Bouton capterSwitch()
 {
+    static unsigned long preMillis = 0; 
+    unsigned long MillisActuel = millis();
+    bool LECTURE = 1, PRET = 0;
+    const int interval = 120;
+    bool etat = PRET;
+
     Bouton bouton;
     bouton.switch1 = digitalRead(SWITCH_1);
     bouton.switch2 = digitalRead(SWITCH_2);
     bouton.switch3 = digitalRead(SWITCH_3);
     bouton.switch4 = digitalRead(SWITCH_4);
+
+    if (MillisActuel-preMillis >= interval && etat == PRET) {
+        preMillis = MillisActuel;
+        etat = LECTURE;
 
     if(bouton.switch1 != HIGH){
         bouton.switch1 = true;
@@ -82,12 +93,11 @@ Bouton capterSwitch()
         bouton.switch3 = true;
         Serial.print(bouton.switch3);
     }
-    if(bouton.switch4 != HIGH){
+    if(bouton.switch4 != HIGH){ 
         bouton.switch4 = true;
         Serial.print(bouton.switch4);
     }
-    delay(120);
+    etat = PRET;
+    }
     return bouton;
 }
-
-    
