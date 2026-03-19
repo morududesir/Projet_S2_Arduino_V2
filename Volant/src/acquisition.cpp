@@ -86,6 +86,7 @@ Bouton capterSwitch()
         bouton.switch4 = true;
         Serial.print(bouton.switch4);
     }
+    delay(120);
     return bouton;
 }
 

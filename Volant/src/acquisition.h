@@ -29,11 +29,8 @@ struct Bouton {
     bool switch2;
     bool switch3;
     bool switch4;
-    
-    bool etat1;
-    bool etat2;
-    bool etat3;
-    bool etat4;
+    bool paddleshiftup;
+    bool paddleshiftdown;
 };
 
 
