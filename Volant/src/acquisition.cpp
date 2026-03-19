@@ -44,7 +44,9 @@ Encodeur capterEncodeurs() {
 
     Encodeur encode;
     encode.valeurGauche = EncodeurGauche.read();
+    Serial.print(encode.valeurGauche);
     encode.valeurDroite = EncodeurDroite.read();
+    Serial.print(encode.valeurDroite);
     return encode;
 }
 
@@ -52,17 +54,27 @@ Joystick capterJoy()
 {
     Joystick joy;
     joy.x = analogRead(PIN_JOYSTICKX);
+    Serial.print("X : ");
+    Serial.print(joy.x);
     joy.y = analogRead(PIN_JOYSTICKY);
+    Serial.print("Y : ");
+    Serial.print(joy.y);
     return joy;
 }
 
 Bouton capterSwitch()
 {
     Bouton bouton;
-    bouton.switch1 = !(digitalRead(SWITCH_1));
-    bouton.switch2 = !(digitalRead(SWITCH_2));
-    bouton.switch3 = !(digitalRead(SWITCH_3));
-    bouton.switch4 = !(digitalRead(SWITCH_4));
+    bouton.switch1 = digitalRead(SWITCH_1);
+    bouton.switch2 = digitalRead(SWITCH_2);
+    bouton.switch3 = digitalRead(SWITCH_3);
+    bouton.switch4 = digitalRead(SWITCH_4);
+
+    if(bouton.switch1 != HIGH) Serial.print("1");
+    if(bouton.switch2 != HIGH) Serial.print("2");
+    if(bouton.switch3 != HIGH) Serial.print("3");
+    if(bouton.switch4 != HIGH) Serial.print("4");
+
     return bouton;
 }
 

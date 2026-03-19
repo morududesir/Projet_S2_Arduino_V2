@@ -55,12 +55,13 @@ DirectionAccel traitement_acceleration()
         
         Serial.print(XYZ_en_g[i]);
     }*/
-    Serial.print("X : ");
-    Serial.print(XYZ[0]);
-    if (XYZ[0]<1.66)
+   valAccel.valeursAccel[0] = XYZ[0];
+    if (XYZ[0]>1.60)
         Serial.print("Gauche");
-    if (XYZ[0]>1.68)
+        valAccel.direction = GAUCHE;
+    if (XYZ[0]<1.71)
         Serial.print("Droite");
+        valAccel.direction = DROITE;
     //Serial.print("Y : ");
     //Serial.print(XYZ[1]);
     //Serial.print("Z : ");

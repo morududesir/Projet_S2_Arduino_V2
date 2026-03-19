@@ -65,7 +65,7 @@ void loop() {
   String accelStr = "Accel(g): X=" + String(valAccel.valeursAccel[0], 2) + " Y=" + String(valAccel.valeursAccel[1], 2) + " Z=" + String(valAccel.valeursAccel[2], 2);
   Serial.println(accelStr);
   Serial.println(dirStr);
-  /*Bouton bouton = capterSwitch();
+  Bouton bouton = capterSwitch();
   String switchStr = "Switch 1: " + String(bouton.switch3) + " - Switch 2: " + String(bouton.switch4);
 
   Joystick joy = capterJoy();
