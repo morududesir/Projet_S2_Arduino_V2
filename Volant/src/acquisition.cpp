@@ -86,7 +86,7 @@ Bouton capterSwitch()
     if (MillisActuel-preMillis >= interval && etat == PRET) {
         preMillis = MillisActuel;
         etat = LECTURE;
-
+        
     if(bouton.switch1 != HIGH){
         bouton.switch1 = true;
         Serial.print(bouton.switch1);
