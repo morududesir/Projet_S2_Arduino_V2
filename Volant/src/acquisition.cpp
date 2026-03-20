@@ -45,6 +45,7 @@ Acceleration capterAccel()
     return accel;
 }
 
+//Marche à moitié
 Encodeur capterEncodeurs() {
 
     Encodeur encode;
@@ -55,6 +56,7 @@ Encodeur capterEncodeurs() {
     return encode;
 }
 
+//Devrait marcher correctement
 Joystick capterJoy()
 {
     Joystick joy;
@@ -67,6 +69,7 @@ Joystick capterJoy()
     return joy;
 }
 
+//Fonction est good
 Bouton capterSwitch()
 {
     static unsigned long preMillis = 0; 
@@ -86,7 +89,7 @@ Bouton capterSwitch()
     if (MillisActuel-preMillis >= interval && etat == PRET) {
         preMillis = MillisActuel;
         etat = LECTURE;
-        
+
     if(bouton.switch1 != HIGH){
         bouton.switch1 = true;
         Serial.print(bouton.switch1);

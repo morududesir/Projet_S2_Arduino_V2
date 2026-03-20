@@ -13,6 +13,7 @@ struct Acceleration {
     float z;
 };
 
+//Structure pour les encodeurs sur la manette
 struct Encodeur {
     long valeurGauche;
     long valeurDroite;
@@ -24,6 +25,7 @@ struct Joystick {
     float y;
 };
 
+//Structure pour les inputs de bouton
 struct Bouton {
     bool switch1;
     bool switch2;
@@ -72,6 +74,7 @@ Encodeur capterEncodeurs();
 //Fonction pour acquisitionner les valeurs de joysticks
 Joystick capterJoy();
 
+//Fonction pour acquisitionnner les inputs de bouton
 Bouton capterSwitch();
 
 #endif 

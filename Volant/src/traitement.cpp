@@ -1,6 +1,8 @@
 #include "traitement.h"
 #include <math.h>  // for fabsf
 
+
+//Peut-être va être scrapper
 uint8_t traitementJoystick() {
     Joystick val = capterJoy();
     if (val.y > joy_mid + joy_deadzone) {
