@@ -2,8 +2,8 @@
 
 #include "acquisition.h"
 
-Encoder EncodeurGauche(PIN_ENCODEUR1A,PIN_ENCODEUR1B);
-Encoder EncodeurDroite(PIN_ENCODEUR2A,PIN_ENCODEUR2B);
+Encoder EncodeurDroite(PIN_ENCODEUR1A,PIN_ENCODEUR1B);
+Encoder EncodeurGauche(PIN_ENCODEUR2A,PIN_ENCODEUR2B);
 
 //Fonction pour init les pins pour les capteurs
 void setupCapteurs()

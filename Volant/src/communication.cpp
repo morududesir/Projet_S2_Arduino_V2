@@ -9,14 +9,28 @@ void sendData(Encodeur encode, Acceleration accel, Joystick joy, Bouton bouton) 
     doc["accelX"] = accel.x;
     doc["accelY"] = accel.y;
     doc["accelZ"] = accel.z;
-    doc["joyX"] = joy.x;
-    doc["joyY"] = joy.y;
-    doc["switchTL"] = bouton.switch1;
-    doc["switchTR"] = bouton.switch2;
-    doc["switchBL"] = bouton.switch3;
-    doc["switchBR"] = bouton.switch4;
+    doc["switchTL"] = bouton.switch3;
+    doc["switchTR"] = bouton.switch1;
+    doc["switchBL"] = bouton.switch4;
+    doc["switchBR"] = bouton.switch2;
     doc["JoyDirection"] = traitementJoystick();
     String output;
     serializeJson(doc, output);
     Serial.println(output);
+}
+
+
+void receiveData() {
+    if (Serial.available()) {
+        String input = Serial.readStringUntil('\n');
+        
+        JsonDocument doc;
+        DeserializationError error = deserializeJson(doc, input);
+        
+        if (error) return;
+        
+        // Extraire les valeurs ici selon ce que le PC envoie
+        // par exemple:
+        // int valeur = doc["valeur"];
+    }
 }

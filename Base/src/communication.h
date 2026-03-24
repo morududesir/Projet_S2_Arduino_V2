@@ -1,4 +1,4 @@
-//Fichier d'entête pour le contrôle du force feedback du volant
+//Fichier d'entête pour le communication entre l'Arduino et le PC
 
 #ifndef COMMUNICATION_H
 #define COMMUNICATION_H
@@ -7,10 +7,10 @@
 
 void sendData(AcquisitionData data);
 
-int minBrake = 0;
-int maxBrake = 1023;
+extern int minBrake;
+extern int maxBrake;
 
-int minGas = 0;
-int maxGas = 1023;
+extern int minGas;
+extern int maxGas;
 
 #endif 

@@ -5,20 +5,18 @@ unsigned long previousMillis = 0;
 AcquisitionData data;
 void setup() {
     Serial.begin(9600);
-    setupDriverReset();  // avant le homing
-    homing();
+    //homing();
+    setupAcquisition();
 }
 
 void loop() {
-    if (checkAndResetDriver()) {
-        // le driver vient de fault — on skip ce cycle
-        Serial.println("ALARM RESET");
-        return;
-    }
-
     if (millis() - previousMillis >= interval * 1000) {
         previousMillis = millis();
-        data = FFB();
+        data = getValues();
         sendData(data);
     }
+
+
+    //Serial.print(" Pot1: "); Serial.print(currentData.pot1Value);
+    //Serial.print(" Pot2: "); Serial.println(currentData.pot2Value);
 }
