@@ -29,14 +29,17 @@ struct Bouton {
     bool switch2;
     bool switch3;
     bool switch4;
+    bool paddleshiftup;
+    bool paddleshiftdown;
 };
 
 
 //Pins Encodeur
-const int PIN_ENCODEUR1A = 21;
-const int PIN_ENCODEUR1B = 20;
-const int PIN_ENCODEUR2A = 22;
-const int PIN_ENCODEUR2B = 23;
+// acquisition.h
+const int PIN_ENCODEUR1A = 21;   // ← remettre comme avant ✅
+const int PIN_ENCODEUR1B = 20;   // ← remettre comme avant ✅
+const int PIN_ENCODEUR2A = 18;    // ← interrupt, pas de conflit ✅
+const int PIN_ENCODEUR2B = 19;    // ← interrupt, pas de conflit ✅
 
 //Pins Joystick
 const int PIN_JOYSTICKX = A3;
@@ -52,6 +55,10 @@ const int SWITCH_1 = 9;
 const int SWITCH_2 = 8;
 const int SWITCH_3 = 7;
 const int SWITCH_4 = 6;
+
+//Pins Paddles
+const int PADDLE_UP = 43; 
+const int PADDLE_DOWN = 45;
 
 const int joy_deadzone = 50;
 const int joy_mid = 512;

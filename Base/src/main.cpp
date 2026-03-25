@@ -4,9 +4,12 @@ const float interval = 1.0 / FreqEchantillonnage;
 unsigned long previousMillis = 0;
 AcquisitionData data;
 void setup() {
-    Serial.begin(9600);
+    Serial.begin(115200);
     //homing();
     setupAcquisition();
+    setupMoteurCtrl();
+
+    
 }
 
 void loop() {

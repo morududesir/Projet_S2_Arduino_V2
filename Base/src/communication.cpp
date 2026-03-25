@@ -1,10 +1,10 @@
 #include "communication.h"
 
-int minBrake = 0;
-int maxBrake = 1023;
+int minBrake = 1023;
+int maxBrake = 984;
 
-int minGas = 0;
-int maxGas = 1023;
+int minGas = 1023;
+int maxGas = 940;
 
 void sendData(AcquisitionData data) {
     float posNormalisee = (float)(data.encoderPos - target) / (180.0 * 2);

@@ -1,7 +1,7 @@
 #include "communication.h"
 
 
-void sendData(Encodeur encode, Acceleration accel, Joystick joy, Bouton bouton) {
+void sendData(Encodeur encode, Acceleration accel, int joy, Bouton bouton) {
 
     JsonDocument doc;
     doc["enc1"] = encode.valeurGauche;
@@ -13,24 +13,33 @@ void sendData(Encodeur encode, Acceleration accel, Joystick joy, Bouton bouton) 
     doc["switchTR"] = bouton.switch1;
     doc["switchBL"] = bouton.switch4;
     doc["switchBR"] = bouton.switch2;
-    doc["JoyDirection"] = traitementJoystick();
+    doc["paddleshiftup"] = bouton.paddleshiftup;
+    doc["paddleshiftdown"] = bouton.paddleshiftdown;
+    doc["JoyDirection"] = joy;
     String output;
     serializeJson(doc, output);
     Serial.println(output);
 }
 
 
-void receiveData() {
+GameData receiveData() {
+    GameData data;
     if (Serial.available()) {
         String input = Serial.readStringUntil('\n');
         
         JsonDocument doc;
         DeserializationError error = deserializeJson(doc, input);
         
-        if (error) return;
+        if (error) return data;
         
-        // Extraire les valeurs ici selon ce que le PC envoie
-        // par exemple:
-        // int valeur = doc["valeur"];
+        data.rpm = doc["rpm"];
+        data.maxRpm = doc["rpmMax"];
+        data.gear = doc["gear"];
+        data.fuel = doc["fuel"];
+        data.tireWear = doc["tires"];
+        data.speed = doc["speed"];
+        data.inPit = doc["pit"];
+        return data;
     }
+    return data;
 }

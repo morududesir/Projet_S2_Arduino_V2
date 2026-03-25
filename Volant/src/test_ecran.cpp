@@ -1,16 +1,13 @@
 /*
 #include <U8g2lib.h>
 
- //SW SPI: (rotation, clock, data, cs, dc, reset)
-U8G2_SSD1309_128X64_NONAME0_F_4W_SW_SPI u8g2(
-  U8G2_R0,
-  51,   //clock
-  52,   //data 
-  255,   //cs
-  11,   //dc
-  10   //reset
-); 
 
+U8G2_SSD1309_128X64_NONAME0_F_4W_HW_SPI u8g2(
+  U8G2_R0,
+  47,   // CS
+  48,   // DC
+  49    // RESET
+);
 
 int i = 0;
 
@@ -45,19 +42,14 @@ void loop() {
 
     u8g2.clearBuffer();
     u8g2.setFont(u8g2_font_logisoso32_tn);
-    int w = u8g2.getStrWidth(buf);
-    int x_speed = (128 - w) / 2;
+    int w1 = u8g2.getStrWidth(buf);
+    int x_speed = (128 - w1) / 2;
+    u8g2.drawStr(x_speed, 50, buf);
 
-    int x_right = x_speed + w;
-    int x_unit = x_right + 5;
-
- 
-    u8g2.drawStr(x_speed, 60, buf);
-
-    
-    u8g2.setFont(u8g2_font_6x12_tr);
-    u8g2.drawStr(x_unit, 50, "KM/H");
-    
+    u8g2.setFont(u8g2_font_6x12_tr);        // ← changer la font D'ABORD
+    int w2 = u8g2.getStrWidth("KM/H");      // ← mesurer APRÈS
+    int x_text = (128 - w2) / 2;
+    u8g2.drawStr(x_text, 60, "KM/H");
     u8g2.sendBuffer();
 
     i++;

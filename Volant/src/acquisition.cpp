@@ -2,8 +2,8 @@
 
 #include "acquisition.h"
 
-Encoder EncodeurDroite(PIN_ENCODEUR1A,PIN_ENCODEUR1B);
-Encoder EncodeurGauche(PIN_ENCODEUR2A,PIN_ENCODEUR2B);
+Encoder EncodeurGauche(PIN_ENCODEUR1A,PIN_ENCODEUR1B);
+Encoder EncodeurDroite(PIN_ENCODEUR2A,PIN_ENCODEUR2B);
 
 //Fonction pour init les pins pour les capteurs
 void setupCapteurs()
@@ -28,6 +28,10 @@ void setupCapteurs()
     pinMode(SWITCH_2,INPUT);
     pinMode(SWITCH_3,INPUT);
     pinMode(SWITCH_4,INPUT);
+
+        //Init Pins Potentiomètre Joystick
+    pinMode(PADDLE_UP,INPUT_PULLUP);
+    pinMode(PADDLE_DOWN,INPUT_PULLUP);
 }
 
 //Fonction pour lire les accélérations des axes XYZ
@@ -57,11 +61,25 @@ Joystick capterJoy()
 
 Bouton capterSwitch()
 {
+    static unsigned long preMillis = 0; 
+    unsigned long MillisActuel = millis();
+    bool LECTURE = 1, PRET = 0;
+    const int interval = 50;
+    bool etat = PRET;
+
     Bouton bouton;
+
+    if (MillisActuel-preMillis >= interval && etat == PRET) {
+        preMillis = MillisActuel;
+        etat = LECTURE;
     bouton.switch1 = !(digitalRead(SWITCH_1));
     bouton.switch2 = !(digitalRead(SWITCH_2));
     bouton.switch3 = !(digitalRead(SWITCH_3));
     bouton.switch4 = !(digitalRead(SWITCH_4));
+    bouton.paddleshiftup = !(digitalRead(PADDLE_UP));
+    bouton.paddleshiftdown = !(digitalRead(PADDLE_DOWN));
+        etat = PRET;
+    }
     return bouton;
 }
 

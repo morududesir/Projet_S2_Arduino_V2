@@ -1,52 +1,41 @@
-
-
+// main.cpp
 #include <Arduino.h>
 #include "acquisition.h"
+#include "communication.h"
+#include "affichage.h"
 
-#include <U8g2lib.h>
+const int freqHz = 100;
+const unsigned long interval = 1000 / freqHz;
+unsigned long previousMillis = 0;
 
-
+GameData lastGameData;   // ← garde la dernière valeur valide
 
 void setup() {
-  Serial.begin(9600);
-  setupCapteurs();
+    Serial.begin(115200);
+    Serial.setTimeout(10);
+    setupCapteurs();
+    setupOLED();
 }
 
 void loop() {
-Encodeur enc = capterEncodeurs();
-Acceleration accel = capterAccel();
-uint8_t joy = traitementJoystick();
-Bouton bouton = capterSwitch();
+    unsigned long now = millis();
+    if (now - previousMillis >= interval) {
+        previousMillis = now;
+        Encodeur enc = capterEncodeurs();
+        Acceleration accel = capterAccel();
+        Bouton bouton = capterSwitch();
+        int joy = traitementJoystick();
+        sendData(enc, accel, joy, bouton);
 
-// Suppose accel et bouton sont déjà définis
+        GameData newData = receiveData();
 
-Serial.print("accelX: ");
-Serial.print(accel.x);
-Serial.print("  accelY: ");
-Serial.print(accel.y);
-Serial.print("  accelZ: ");
-Serial.println(accel.z); // println pour passer à la ligne
+        // ← met à jour seulement si de nouvelles données arrivent
+        if (newData.maxRpm > 0) {
+            lastGameData = newData;
+        }
 
-
-
-Serial.print("switchTL: ");
-Serial.print(bouton.switch3);
-Serial.print("  switchTR: ");
-Serial.print(bouton.switch1);
-Serial.print("  switchBL: ");
-Serial.print(bouton.switch4);
-Serial.print("  switchBR: ");
-Serial.println(bouton.switch2);
-
-
-
-Serial.print("JoyDirection: ");
-Serial.println(traitementJoystick());
-
-
-
-Serial.print(enc.valeurGauche);
-Serial.print("  ");
-Serial.println(enc.valeurDroite);
+        afficherData(lastGameData.rpm, lastGameData.maxRpm, lastGameData.gear,
+                     lastGameData.fuel, lastGameData.tireWear, lastGameData.speed,
+                     lastGameData.inPit);
+    }
 }
-
