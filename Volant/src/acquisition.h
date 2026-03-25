@@ -61,6 +61,8 @@ const int SWITCH_4 = 6;
 //Pins Paddles
 const int PADDLE_UP = 4; 
 const int PADDLE_DOWN = 5; 
+const int joy_deadzone = 50;
+const int joy_mid = 512;
 
 //Fonction Init Pins
 void setupCapteurs();
@@ -76,5 +78,7 @@ Joystick capterJoy();
 
 //Fonction pour acquisitionnner les inputs de bouton
 Bouton capterSwitch();
+
+uint8_t traitementJoystick();
 
 #endif 

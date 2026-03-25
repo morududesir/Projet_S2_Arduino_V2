@@ -4,7 +4,7 @@ int target = 0;
 void homing() {
   setupAcquisition();
   setupMoteurCtrl();
-    pinMode(4, INPUT_PULLUP);
+  pinMode(4, INPUT_PULLUP);
   int zPosition = 0;
   int zCount = 0;
   setSpeed(homingSpeed);
@@ -14,31 +14,35 @@ void homing() {
       while(digitalRead(4) == HIGH); // Attendre que Z repasse à LOW
       if(zCount == 2) {
         zPosition = getValues().encoderPos;
-        setSpeed(0);
+        setSpeed(0.0f);
         break;
       }
     }
   }
   target = zPosition + zOffset;
-  while(1) {
+
+while(1) {
     int pos = getValues().encoderPos;
     int erreurHoming = target - pos;
     if (abs(erreurHoming) <= 5) {
-        setSpeed(0);
+        setSpeed(0.0f);
         break;
     }
-    setSpeed((erreurHoming > 0) ? homingSpeed : -homingSpeed);
-  }
+    setSpeed((erreurHoming > 0) ? (float)homingSpeed : -(float)homingSpeed);
+    delay(10);
 }
+}
+
 AcquisitionData FFB() {
   AcquisitionData data = getValues();
   static int prevEncoderPos;
   float erreur = data.encoderPos - target;
   float vitesse = (data.encoderPos - prevEncoderPos) / deltaT; 
   prevEncoderPos = data.encoderPos; // Variable statique pour stocker la position précédente
-  float rpm = (erreur * gainLineaire) + (erreur * abs(erreur) * gainExponentiel) - (vitesse * gainD);
+  float rpm = (erreur * gainLineaire) + (erreur * fabs(erreur) * gainExponentiel) - (vitesse * gainD);
   if(rpm > capSpeed) rpm = capSpeed;
   else if(rpm < -capSpeed) rpm = -capSpeed;
+  /*
   Serial.print(">");
   Serial.print("Erreur:"); Serial.print(erreur);
   Serial.print(",");
@@ -46,6 +50,7 @@ AcquisitionData FFB() {
   Serial.print(",");
   Serial.print("Position:"); Serial.print(data.encoderPos);
   Serial.println();
-  //setSpeed(rpm);
+  */
+  setSpeed(rpm);
   return data;
 }

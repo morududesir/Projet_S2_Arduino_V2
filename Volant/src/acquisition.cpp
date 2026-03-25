@@ -3,8 +3,8 @@
 #include "acquisition.h"
 #include "string.h"
 
-Encoder EncodeurGauche(PIN_ENCODEUR1A,PIN_ENCODEUR1B);
-Encoder EncodeurDroite(PIN_ENCODEUR2A,PIN_ENCODEUR2B);
+Encoder EncodeurDroite(PIN_ENCODEUR1A,PIN_ENCODEUR1B);
+Encoder EncodeurGauche(PIN_ENCODEUR2A,PIN_ENCODEUR2B);
 
 //Fonction pour init les pins pour les capteurs
 void setupCapteurs()
@@ -29,10 +29,10 @@ void setupCapteurs()
     pinMode(PIN_ACCELEROZ,INPUT);
 
     //Init Pins Switches
-    pinMode(SWITCH_1,INPUT_PULLUP);
-    pinMode(SWITCH_2,INPUT_PULLUP);
-    pinMode(SWITCH_3,INPUT_PULLUP);
-    pinMode(SWITCH_4,INPUT_PULLUP);
+    pinMode(SWITCH_1,INPUT);
+    pinMode(SWITCH_2,INPUT);
+    pinMode(SWITCH_3,INPUT);
+    pinMode(SWITCH_4,INPUT);
 }
 
 //Fonction pour lire les accélérations des axes XYZ
@@ -47,7 +47,6 @@ Acceleration capterAccel()
 
 //Marche à moitié
 Encodeur capterEncodeurs() {
-
     Encodeur encode;
     encode.valeurGauche = EncodeurGauche.read();
     Serial.print(encode.valeurGauche);
@@ -122,3 +121,20 @@ Bouton capterSwitch()
     }
     return bouton;
 }
+
+uint8_t traitementJoystick() {
+    Joystick val = capterJoy();
+    if (val.y > joy_mid + joy_deadzone) {
+        return 0b001; //Haut
+    } else if (val.y < joy_mid - joy_deadzone) {
+        return 0b010; //Bas
+    } else if (val.x > joy_mid + joy_deadzone) {
+        return 0b011; //Gauche
+    } else if (val.x < joy_mid - joy_deadzone) {
+        return 0b100; //Droite
+    } else {
+        return 0b000;
+    }
+}
+
+    
