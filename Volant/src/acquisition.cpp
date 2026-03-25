@@ -45,13 +45,21 @@ Acceleration capterAccel()
     return accel;
 }
 
-//Marche à moitié
+//
 Encodeur capterEncodeurs() {
+    static long dernierGauche = 0,dernierDroite = 0;
+    long actuelGauche, actuelDroite;
+
+
     Encodeur encode;
-    encode.valeurGauche = EncodeurGauche.read();
-    Serial.print(encode.valeurGauche);
-    encode.valeurDroite = EncodeurDroite.read();
-    Serial.print(encode.valeurDroite);
+    actuelGauche = EncodeurGauche.read();
+    actuelDroite = EncodeurDroite.read();
+
+    encode.valeurGauche = actuelGauche - dernierGauche;
+    encode.valeurDroite = actuelDroite - dernierDroite;
+
+    dernierGauche = actuelGauche;
+    dernierDroite = actuelDroite;
     return encode;
 }
 
@@ -75,7 +83,7 @@ Bouton capterSwitch()
     unsigned long MillisActuel = millis();
     bool LECTURE = 1, PRET = 0;
     const int interval = 200;
-    bool etat = PRET;
+    static bool etat = PRET;
 
     Bouton bouton;
     bouton.switch1 = digitalRead(SWITCH_1);
@@ -104,10 +112,6 @@ Bouton capterSwitch()
     if(bouton.switch4 != HIGH){ 
         bouton.switch4 = true;
         Serial.print(bouton.switch4);
-    }
-    if(bouton.switch3 != HIGH){
-        bouton.switch3 = true;
-        Serial.print(bouton.switch3);
     }
     if(bouton.paddleshiftup != HIGH){ 
         bouton.paddleshiftup = true;

@@ -7,4 +7,6 @@
 
 void sendData(Encodeur encode, Acceleration accel, Joystick joy, Bouton bouton);
 
+void receiveData();
+
 #endif 

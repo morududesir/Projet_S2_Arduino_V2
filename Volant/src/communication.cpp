@@ -3,7 +3,7 @@
 
 void sendData(Encodeur encode, Acceleration accel, Joystick joy, Bouton bouton) {
 
-    JsonDocument doc;
+    StaticJsonDocument<192> doc;
     doc["enc1"] = encode.valeurGauche;
     doc["enc2"] = encode.valeurDroite;
     doc["accelX"] = accel.x;
@@ -14,16 +14,17 @@ void sendData(Encodeur encode, Acceleration accel, Joystick joy, Bouton bouton) 
     doc["switchBL"] = bouton.switch4;
     doc["switchBR"] = bouton.switch2;
     doc["JoyDirection"] = traitementJoystick();
-    String output;
-    serializeJson(doc, output);
-    Serial.println(output);
+
+    serializeJson(doc, Serial);
+    Serial.println();
 }
 
 
 void receiveData() {
+    
     if (Serial.available()) {
         String input = Serial.readStringUntil('\n');
-        
+
         JsonDocument doc;
         DeserializationError error = deserializeJson(doc, input);
         
