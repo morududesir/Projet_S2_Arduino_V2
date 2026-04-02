@@ -21,5 +21,6 @@ void loop() {
 
 
     //Serial.print(" Pot1: "); Serial.print(currentData.pot1Value);
-    //Serial.print(" Pot2: "); Serial.println(currentData.pot2Value);
+    //Serial.print(" Pot2: "); Serial.println(data.pot2Value);
+    
 }

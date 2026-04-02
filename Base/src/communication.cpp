@@ -1,7 +1,7 @@
 #include "communication.h"
 
 int minBrake = 1023;
-int maxBrake = 984;
+int maxBrake = 981;
 
 int minGas = 1023;
 int maxGas = 940;
