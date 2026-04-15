@@ -4,7 +4,7 @@
 #include "communication.h"
 #include "affichage.h"
 
-const int freqHz = 100;
+const int freqHz = 60;  // Fréquence d'acquisition et d'affichage (60 Hz)
 const unsigned long interval = 1000 / freqHz;
 unsigned long previousMillis = 0;
 
@@ -17,6 +17,7 @@ void setup() {
     setupOLED();
     digitalWrite(PIN_DEL1, HIGH);
     digitalWrite(PIN_DEL2, HIGH);
+    pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
@@ -39,5 +40,10 @@ void loop() {
         afficherData(lastGameData.rpm, lastGameData.maxRpm, lastGameData.gear,
                      lastGameData.fuel, lastGameData.tireWear, lastGameData.speed,
                      lastGameData.inPit);
+    }
+    if(analogRead(A5) > ((1.25 * 1023 / 5))) {
+        digitalWrite(LED_BUILTIN, LOW);
+    } else {
+        digitalWrite(PIN_DEL1, HIGH);
     }
 }

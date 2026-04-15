@@ -32,13 +32,13 @@ GameData receiveData() {
         
         if (error) return data;
         
-        data.rpm = doc["rpm"];
-        data.maxRpm = doc["rpmMax"];
-        data.gear = doc["gear"];
-        data.fuel = doc["fuel"];
-        data.tireWear = doc["tires"];
-        data.speed = doc["speed"];
-        data.inPit = doc["pit"];
+        data.rpm = doc["r"];
+        data.maxRpm = doc["rM"];
+        data.gear = doc["g"];
+        data.fuel = doc["f"];
+        data.tireWear = doc["t"];
+        data.speed = doc["s"];
+        data.inPit = doc["p"];
         return data;
     }
     return data;
