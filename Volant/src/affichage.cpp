@@ -1,19 +1,13 @@
 #include "affichage.h"
+
 U8G2_SSD1309_128X64_NONAME0_F_4W_HW_SPI u8g2(
   U8G2_R0,
   47,   // CS
   48,   // DC
   49    // RESET
 );
-int pinRpm = 10;
 
-// ── Layout ─────────────────────────────
-// Gauche  : x=0..30   (31px) → Gear
-// Sep.    : x=31
-// Centre  : x=32..95  (64px) → Vitesse
-// Sep.    : x=96
-// Droite  : x=97..127 (31px) → Gas/Tire vertical
-// ───────────────────────────────────────
+int pinRpm = 10;
 
 void setupOLED() {
     u8g2.begin();
@@ -23,9 +17,31 @@ void setupOLED() {
 
 void afficherData(float rpm, float maxRpm, int gear, float fuel, float tireWear, float speed, bool inPit) {
 
+    static float lastSpeed    = -1;
+    static int   lastGear     = -1;
+    static float lastFuel     = -1;
+    static float lastTireWear = -1;
+    static float lastRpm      = -1;
+
+    // PWM rpm à chaque appel peu importe
     int pwm = map(rpm, 0, maxRpm, 0, 70);
     pwm = constrain(pwm, 0, 70);
     analogWrite(pinRpm, pwm);
+
+    // Si rien n'a changé, pas de redraw
+    if ((int)speed    == (int)lastSpeed    &&
+        gear          == lastGear          &&
+        (int)fuel     == (int)lastFuel     &&
+        (int)tireWear == (int)lastTireWear &&
+        (int)rpm      == (int)lastRpm) {
+        return;
+    }
+
+    lastSpeed    = speed;
+    lastGear     = gear;
+    lastFuel     = fuel;
+    lastTireWear = tireWear;
+    lastRpm      = rpm;
 
     char buf[8];
     u8g2.clearBuffer();
@@ -68,19 +84,16 @@ void afficherData(float rpm, float maxRpm, int gear, float fuel, float tireWear,
     const int gasX  = 99;
     const int tireX = 115;
 
-    // Barre GAS
     u8g2.drawFrame(gasX, barY, barW, barH);
     int gasH = map((int)fuel, 0, 100, 0, barH - 2);
     if (gasH > 0)
         u8g2.drawBox(gasX + 1, barY + 1 + (barH - 2 - gasH), barW - 2, gasH);
 
-    // Barre TIRE
     u8g2.drawFrame(tireX, barY, barW, barH);
     int tireH = map((int)tireWear, 0, 100, 0, barH - 2);
     if (tireH > 0)
         u8g2.drawBox(tireX + 1, barY + 1 + (barH - 2 - tireH), barW - 2, tireH);
 
-    // Labels sous les barres
     u8g2.setFont(u8g2_font_4x6_tr);
     u8g2.drawStr(gasX,      58, "GAS");
     u8g2.drawStr(tireX - 2, 58, "TIRE");

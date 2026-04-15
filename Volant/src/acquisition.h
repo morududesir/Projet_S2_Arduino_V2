@@ -3,7 +3,7 @@
 #ifndef ACQUISITION_H
 #define ACQUISITION_H
 
-#include <arduino.h>
+#include <Arduino.h>
 #include <Encoder.h>
 
 //Structure pour les valeurs de retour d'accélération
@@ -36,10 +36,10 @@ struct Bouton {
 
 //Pins Encodeur
 // acquisition.h
-const int PIN_ENCODEUR1A = 21;   // ← remettre comme avant ✅
-const int PIN_ENCODEUR1B = 20;   // ← remettre comme avant ✅
-const int PIN_ENCODEUR2A = 18;    // ← interrupt, pas de conflit ✅
-const int PIN_ENCODEUR2B = 19;    // ← interrupt, pas de conflit ✅
+const int PIN_ENCODEUR1A = 18; 
+const int PIN_ENCODEUR1B = 19; 
+const int PIN_ENCODEUR2A = 20;   
+const int PIN_ENCODEUR2B = 21;    
 
 //Pins Joystick
 const int PIN_JOYSTICKX = A3;
