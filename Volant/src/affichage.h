@@ -1,5 +1,5 @@
-#ifndef ACQUISITION_H
-#define ACQUISITION_H
+#ifndef AFFICHAGE_H
+#define AFFICHAGE_H
 
 #include <U8g2lib.h>
 #include "communication.h"

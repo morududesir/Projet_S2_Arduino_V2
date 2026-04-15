@@ -15,6 +15,8 @@ void setup() {
     Serial.setTimeout(10);
     setupCapteurs();
     setupOLED();
+    digitalWrite(PIN_DEL1, HIGH);
+    digitalWrite(PIN_DEL2, HIGH);
 }
 
 void loop() {

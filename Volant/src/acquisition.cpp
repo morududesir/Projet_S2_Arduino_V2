@@ -2,17 +2,17 @@
 
 #include "acquisition.h"
 
-Encoder EncodeurGauche(PIN_ENCODEUR1A,PIN_ENCODEUR1B);
-Encoder EncodeurDroite(PIN_ENCODEUR2A,PIN_ENCODEUR2B);
+Encoder EncodeurGauche(PIN_ENCODEUR_GAUCHE_A,PIN_ENCODEUR_GAUCHE_B);
+Encoder EncodeurDroite(PIN_ENCODEUR_DROIT_A,PIN_ENCODEUR_DROIT_B);
 
 //Fonction pour init les pins pour les capteurs
 void setupCapteurs()
 {
     //Init Pins Encodeurs volants
-    pinMode(PIN_ENCODEUR1A,INPUT);
-    pinMode(PIN_ENCODEUR1B,INPUT);
-    pinMode(PIN_ENCODEUR2A,INPUT);
-    pinMode(PIN_ENCODEUR2B,INPUT);
+    pinMode(PIN_ENCODEUR_DROIT_A,INPUT);
+    pinMode(PIN_ENCODEUR_DROIT_B,INPUT);
+    pinMode(PIN_ENCODEUR_GAUCHE_A,INPUT);
+    pinMode(PIN_ENCODEUR_GAUCHE_B,INPUT);
 
     //Init Pins Potentiomètre Joystick
     pinMode(PIN_JOYSTICKX,INPUT);
@@ -29,9 +29,13 @@ void setupCapteurs()
     pinMode(SWITCH_3,INPUT);
     pinMode(SWITCH_4,INPUT);
 
-        //Init Pins Potentiomètre Joystick
+    //Init Pins Potentiomètre Joystick
     pinMode(PADDLE_UP,INPUT_PULLUP);
     pinMode(PADDLE_DOWN,INPUT_PULLUP);
+
+    //Init Pins DELs
+    pinMode(PIN_DEL1,OUTPUT);
+    pinMode(PIN_DEL2,OUTPUT);
 }
 
 //Fonction pour lire les accélérations des axes XYZ

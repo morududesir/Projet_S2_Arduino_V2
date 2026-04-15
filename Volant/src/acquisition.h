@@ -36,10 +36,10 @@ struct Bouton {
 
 //Pins Encodeur
 // acquisition.h
-const int PIN_ENCODEUR1A = 18; 
-const int PIN_ENCODEUR1B = 19; 
-const int PIN_ENCODEUR2A = 20;   
-const int PIN_ENCODEUR2B = 21;    
+const int PIN_ENCODEUR_DROIT_A = 2; 
+const int PIN_ENCODEUR_DROIT_B = 3; 
+const int PIN_ENCODEUR_GAUCHE_A = 18;   
+const int PIN_ENCODEUR_GAUCHE_B = 19;    
 
 //Pins Joystick
 const int PIN_JOYSTICKX = A3;
@@ -49,6 +49,10 @@ const int PIN_JOYSTICKY = A4;
 const int PIN_ACCELEROX = A0;
 const int PIN_ACCELEROY = A1;
 const int PIN_ACCELEROZ = A2;
+
+//Pins DELs
+const int PIN_DEL1 = 4;
+const int PIN_DEL2 = 5;
 
 //Pins Switch
 const int SWITCH_1 = 9;
