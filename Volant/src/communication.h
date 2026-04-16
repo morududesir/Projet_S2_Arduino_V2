@@ -16,7 +16,7 @@ struct GameData {
     bool inPit = false;
 };
 
-void sendData(Encodeur encode, Acceleration accel, int joy, Bouton bouton);
+void sendData(Encodeur encode, Acceleration accel, int joy, Bouton bouton, int muonCount);
 
 GameData receiveData();
 

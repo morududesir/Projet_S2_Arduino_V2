@@ -1,7 +1,7 @@
 #include "communication.h"
 
 
-void sendData(Encodeur encode, Acceleration accel, int joy, Bouton bouton) {
+void sendData(Encodeur encode, Acceleration accel, int joy, Bouton bouton, int muonCount) {
 
     JsonDocument doc;
     doc["enc1"] = encode.valeurGauche;
@@ -16,6 +16,7 @@ void sendData(Encodeur encode, Acceleration accel, int joy, Bouton bouton) {
     doc["paddleshiftup"] = bouton.paddleshiftup;
     doc["paddleshiftdown"] = bouton.paddleshiftdown;
     doc["JoyDirection"] = joy;
+    doc["Muon"] = muonCount;
     String output;
     serializeJson(doc, output);
     Serial.println(output);
